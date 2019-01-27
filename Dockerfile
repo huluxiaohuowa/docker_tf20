@@ -1,6 +1,6 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 LABEL maintainer="4@jach.vip"
-LABEL version="0.0.1"
+LABEL version="0.0.2"
 
 #  update
 RUN apt-get -y update
