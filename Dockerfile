@@ -9,7 +9,7 @@ RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
     echo "export PATH=\$PATH:\$NVIDIA_HOME/bin" >> /etc/bash.bashrc && \
     echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$CUDA_HOME/lib64:\$NVIDIA_HOME/lib64" >> /etc/bash.bashrc && \
     echo "export LIBRARY_PATH=\$LIBRARY_PATH:\$CUDA_HOME/lib64:\$NVIDIA_HOME/lib64" >> /etc/bash.bashrc && \
-    apt-get -y update && apt-get upgrade && \
+    apt-get -y update && apt-get -y upgrade && \
     apt-get install -y htop tmux vim libfontconfig1 libxrender1 openssh-server checkinstall openmpi-bin openmpi-doc libopenmpi-dev && \
     mkdir -p /var/run/sshd && \
     mkdir -p /root/.ssh && \
