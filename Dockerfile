@@ -1,6 +1,6 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 LABEL maintainer="4@jach.vip"
-LABEL version="0.0.6"
+LABEL version="0.0.8"
 
 # apps
 RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
@@ -10,7 +10,7 @@ RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
     echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$CUDA_HOME/lib64:\$NVIDIA_HOME/lib64" >> /etc/bash.bashrc && \
     echo "export LIBRARY_PATH=\$LIBRARY_PATH:\$CUDA_HOME/lib64:\$NVIDIA_HOME/lib64" >> /etc/bash.bashrc && \
     apt-get -y update && apt-get -y upgrade && \
-    apt-get install -y htop tmux vim libfontconfig1 libxrender1 openssh-server checkinstall openmpi-bin openmpi-doc libopenmpi-dev && \
+    apt-get install -y htop tmux vim libfontconfig1 libxrender1 openssh-server checkinstall openmpi-bin openmpi-doc libopenmpi-dev graphviz && \
     mkdir -p /var/run/sshd && \
     mkdir -p /root/.ssh && \
     sed -ri 's/session    required     pam_loginuid.so/# session    required     pam_loginuid.so/g' /etc/pam.d/sshd && \
@@ -54,7 +54,7 @@ RUN /opt/conda/bin/conda install -y python=3.6 && \
     echo "c.NotebookApp.notebook_dir = '/root/jupyter'" >> /root/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.allow_remote_access = True" >> /root/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.token = 'woaixiaohuowa'" >> /root/.jupyter/jupyter_notebook_config.py && \
-    /opt/conda/bin/pip install tf-nightly-gpu-2.0-preview && \
+    /opt/conda/bin/pip install tf-nightly-gpu-2.0-preview graphviz pydot networkx && \
     /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ && \
     /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ && \
     /opt/conda/bin/conda config --set show_channel_urls yes && \
