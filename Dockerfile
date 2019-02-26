@@ -1,6 +1,6 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 LABEL maintainer="4@jach.vip"
-LABEL version="0.0.8"
+LABEL version="1.0.0"
 
 # apps
 RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
@@ -40,8 +40,7 @@ RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
 
 
 # python packages
-RUN /opt/conda/bin/conda install -y python=3.6 && \
-    /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
+RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     /opt/conda/bin/conda install -y -c conda-forge matplotlib && \
     /opt/conda/bin/conda install -y -c conda-forge scikit-learn && \
     /opt/conda/bin/conda install -y -c conda-forge scipy && \
