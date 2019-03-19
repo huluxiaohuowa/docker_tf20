@@ -1,6 +1,6 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 LABEL maintainer="4@jach.vip"
-LABEL version="1.0.7"
+LABEL version="1.0.8"
 
 # apps
 RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
@@ -54,7 +54,7 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     echo "c.NotebookApp.notebook_dir = '/root/jupyter'" >> /root/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.allow_remote_access = True" >> /root/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.token = 'woaixiaohuowa'" >> /root/.jupyter/jupyter_notebook_config.py && \
-    /opt/conda/bin/pip install tf-nightly-gpu-2.0-preview joblib graphviz pydot fire networkx && \
+    /opt/conda/bin/pip install tqdm tf-nightly-gpu-2.0-preview joblib graphviz pydot fire networkx && \
     /opt/conda/bin/pip install dgl adabound tensorboardX torch-scatter torch-sparse torch-cluster torch-spline-conv torch-geometric && \
     /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ && \
     /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ && \
@@ -72,8 +72,8 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
 RUN touch /entrypoint.sh && \
     echo "#! /bin/bash" >> /entrypoint.sh && \
     echo "/usr/sbin/sshd &" >> /entrypoint.sh && \
-    echo "/opt/conda/bin/jupyter lab --allow-root \"\$@\" &" >> /entrypoint.sh && \
-    echo "/opt/conda/bin/tensorboard --logdir=/root/jupyter/tensorboard" >> /entrypoint.sh && \
+    echo "/opt/conda/bin/tensorboard --logdir=/root/jupyter/tensorboard" &>> /entrypoint.sh && \
+    echo "/opt/conda/bin/jupyter lab --allow-root \"\$@\"" >> /entrypoint.sh && \
     chmod 755 /entrypoint.sh
 
 EXPOSE 8888 22 6006 
