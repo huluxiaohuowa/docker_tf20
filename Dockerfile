@@ -1,6 +1,6 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 LABEL maintainer="4@jach.vip"
-LABEL version="1.1.1"
+LABEL version="1.1.2"
 
 # apps
 RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
@@ -71,6 +71,8 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
 # entrypoint
 RUN touch /entrypoint.sh && \
     echo "#! /bin/bash" >> /entrypoint.sh && \
+    echo "export SHELL=/bin/bash" >> /etc/environment && \
+    echo "export SHELL=/bin/bash" >> /entrypoint.sh && \
     echo "/usr/sbin/sshd &" >> /entrypoint.sh && \
     echo "/opt/conda/bin/tensorboard --logdir=/root/jupyter/tensorboard &" >> /entrypoint.sh && \
     echo "/opt/conda/bin/jupyter lab --allow-root" >> /entrypoint.sh && \
