@@ -1,6 +1,6 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 LABEL maintainer="4@jach.vip"
-LABEL version="1.0.6"
+LABEL version="1.0.7"
 
 # apps
 RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
@@ -28,7 +28,6 @@ RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
     /opt/conda/bin/conda clean -tipsy && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    echo "conda activate base" >> ~/.bashrc && \
     echo "export PATH=\"\$PATH:/opt/conda/bin\"" >> /etc/bash.bashrc && \
     mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
     touch /etc/apt/sources.list && \
@@ -47,6 +46,7 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     /opt/conda/bin/conda install -y -c rdkit rdkit && \
     /opt/conda/bin/conda install -y pytorch torchvision cudatoolkit=10.0 -c pytorch && \
     /opt/conda/bin/jupyter lab --generate-config  --allow-root && \
+    echo "c.NotebookApp.terminado_settings = { \"/bin/bash\": \"foo\" }" >> /root/.jupyter/jupyter_notebook_config.py && \ 
     echo "c.NotebookApp.ip = '*'" >> /root/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.open_browser = False" >> /root/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.port =8888 " >> /root/.jupyter/jupyter_notebook_config.py && \
