@@ -1,14 +1,14 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 LABEL maintainer="4@jach.vip"
-LABEL version="1.1.3"
+LABEL version="1.1.4"
 
 # apps
-RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/environment && \
-    echo "export NVIDIA_HOME=\"/usr/local/nvidia/\"" >> /etc/environment && \
-    echo "export PATH=\$PATH:\$CUDA_HOME/bin" >> /etc/environment && \
-    echo "export PATH=\$PATH:\$NVIDIA_HOME/bin" >> /etc/environment && \
-    echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$CUDA_HOME/lib64:\$NVIDIA_HOME/lib64" >> /etc/environment && \
-    echo "export LIBRARY_PATH=\$LIBRARY_PATH:\$CUDA_HOME/lib64:\$NVIDIA_HOME/lib64" >> /etc/environment && \
+RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
+    echo "export NVIDIA_HOME=\"/usr/local/nvidia/\"" >> /etc/bash.bashrc && \
+    echo "export PATH=\$PATH:\$CUDA_HOME/bin" >> /etc/bash.bashrc && \
+    echo "export PATH=\$PATH:\$NVIDIA_HOME/bin" >> /etc/bash.bashrc && \
+    echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$CUDA_HOME/lib64:\$NVIDIA_HOME/lib64" >> /etc/bash.bashrc && \
+    echo "export LIBRARY_PATH=\$LIBRARY_PATH:\$CUDA_HOME/lib64:\$NVIDIA_HOME/lib64" >> /etc/bash.bashrc && \
     apt-get -y update && apt-get -y upgrade && \
     apt-get install -y htop tmux vim libfontconfig1 libxrender1 openssh-server checkinstall openmpi-bin openmpi-doc libopenmpi-dev graphviz && \
     mkdir -p /var/run/sshd && \
@@ -28,7 +28,7 @@ RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/environment && \
     /opt/conda/bin/conda clean -tipsy && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    echo "export PATH=\"\$PATH:/opt/conda/bin\"" >> /etc/environment && \
+    echo "export PATH=\"\$PATH:/opt/conda/bin\"" >> /etc/bash.bashrc && \
     mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
     touch /etc/apt/sources.list && \
     echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial main restricted universe multiverse" >> /etc/apt/sources.list && \
@@ -71,7 +71,6 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
 # entrypoint
 RUN touch /entrypoint.sh && \
     echo "#! /bin/bash" >> /entrypoint.sh && \
-    echo "export SHELL=/bin/bash" >> /etc/environment && \
     echo "export SHELL=/bin/bash" >> /entrypoint.sh && \
     echo "/usr/sbin/sshd &" >> /entrypoint.sh && \
     echo "/opt/conda/bin/tensorboard --logdir=/root/jupyter/tensorboard &" >> /entrypoint.sh && \
