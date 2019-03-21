@@ -1,6 +1,6 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 LABEL maintainer="4@jach.vip"
-LABEL version="1.1.4"
+LABEL version="1.1.5"
 
 # apps
 RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
@@ -77,5 +77,5 @@ RUN touch /entrypoint.sh && \
     echo "/opt/conda/bin/jupyter lab --allow-root" >> /entrypoint.sh && \
     chmod 755 /entrypoint.sh
 
-EXPOSE 8888 22 6006 
+EXPOSE 8888 22 6006 8899
 CMD ["/entrypoint.sh"]
