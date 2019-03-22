@@ -1,6 +1,6 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 LABEL maintainer="4@jach.vip"
-LABEL version="1.1.7"
+LABEL version="1.1.8"
 
 # apps
 RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
@@ -41,7 +41,7 @@ RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
 
 # python packages
 RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
-    /opt/conda/bin/conda install npm && \
+    /opt/conda/bin/conda install nodejs && \
     /opt/conda/bin/jupyter labextension install @krassowski/jupyterlab_go_to_definition && \
     /opt/conda/bin/jupyter labextension install @jupyterlab/toc && \
     /opt/conda/bin/jupyter labextension install @telamonian/theme-darcula && \
