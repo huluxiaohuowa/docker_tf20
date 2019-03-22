@@ -1,6 +1,6 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 LABEL maintainer="4@jach.vip"
-LABEL version="1.1.6"
+LABEL version="1.1.7"
 
 # apps
 RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
@@ -29,6 +29,7 @@ RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "export PATH=\"\$PATH:/opt/conda/bin\"" >> /etc/bash.bashrc && \
+    echo "export NODE_MIRROR=https://mirrors.tuna.tsinghua.edu.cn/nodejs-release/" >> /etc/bash.bashrc && \
     mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
     touch /etc/apt/sources.list && \
     echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial main restricted universe multiverse" >> /etc/apt/sources.list && \
@@ -40,6 +41,10 @@ RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
 
 # python packages
 RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
+    /opt/conda/bin/conda install npm && \
+    /opt/conda/bin/jupyter labextension install @krassowski/jupyterlab_go_to_definition && \
+    /opt/conda/bin/jupyter labextension install @jupyterlab/toc && \
+    /opt/conda/bin/jupyter labextension install @telamonian/theme-darcula && \
     /opt/conda/bin/conda install -y -c conda-forge matplotlib && \
     /opt/conda/bin/conda install -y -c conda-forge scikit-learn && \
     /opt/conda/bin/conda install -y -c conda-forge scipy && \
@@ -77,5 +82,5 @@ RUN touch /entrypoint.sh && \
     echo "/opt/conda/bin/jupyter lab --allow-root" >> /entrypoint.sh && \
     chmod 755 /entrypoint.sh
 
-EXPOSE 8888 22 6006 8899
+EXPOSE 8888 22 6006
 CMD ["/entrypoint.sh"]
