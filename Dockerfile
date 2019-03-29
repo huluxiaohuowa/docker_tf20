@@ -43,7 +43,6 @@ RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
 RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     /opt/conda/bin/conda install nodejs && \
     /opt/conda/bin/conda install python==3.6.7 && \
-    /opt/conda/bin/pip install e3fp && \
     /opt/conda/bin/jupyter labextension install @krassowski/jupyterlab_go_to_definition && \
     /opt/conda/bin/jupyter labextension install @jupyterlab/toc && \
     /opt/conda/bin/jupyter labextension install @telamonian/theme-darcula && \
@@ -63,6 +62,7 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     echo "c.NotebookApp.token = 'woaixiaohuowa'" >> /root/.jupyter/jupyter_notebook_config.py && \
     /opt/conda/bin/pip install ipypb tf-nightly-gpu-2.0-preview joblib graphviz pydot fire networkx  && \
     /opt/conda/bin/pip install py3dmol dgl adabound tensorboardX torch-scatter torch-sparse torch-cluster torch-spline-conv torch-geometric && \
+    /opt/conda/bin/pip install e3fp && \
     /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ && \
     /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ && \
     /opt/conda/bin/conda config --set show_channel_urls yes && \
