@@ -1,6 +1,6 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 LABEL maintainer="4@jach.vip"
-LABEL version="1.1.12"
+LABEL version="1.1.13"
 
 # apps
 RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
@@ -66,7 +66,6 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     /opt/conda/bin/pip install py3dmol dgl adabound tensorboardX torch-scatter torch-sparse torch-cluster torch-spline-conv torch-geometric && \
     # hhhh e3fp 
     /opt/conda/bin/pip install e3fp && \
-    echo "set -o vi" >> /etc/bash.bashrc && \
     /opt/conda/bin/jupyter labextension install jupyterlab_vim && \
     /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ && \
     /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ && \
@@ -81,7 +80,16 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
 
 
 # entrypoint
-RUN touch /entrypoint.sh && \
+
+RUN echo "set number" >> /etc/vim/vimrc && \
+    echo "set -o vi" >> /etc/bash.bashrc && \
+    touch /root/mylayout && \
+    touch /root/.tmux.conf && \
+    echo "selectp -t 0" >> /root/mylayout && \
+    echo "splitw -h -p 43" >> /root/mylayout && \
+    echo "selectp -t 0" >> /root/mylayout &&\
+    echo "bind D source-file /root/mylayout" >> /root/.tmux.conf && \
+    touch /entrypoint.sh && \
     echo "#! /bin/bash" >> /entrypoint.sh && \
     echo "export SHELL=/bin/bash" >> /entrypoint.sh && \
     echo "/usr/sbin/sshd &" >> /entrypoint.sh && \
