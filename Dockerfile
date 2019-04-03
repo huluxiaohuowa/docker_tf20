@@ -86,7 +86,7 @@ RUN echo "set number" >> /etc/vim/vimrc && \
     touch /root/mylayout && \
     touch /root/.tmux.conf && \
     echo "selectp -t 0" >> /root/mylayout && \
-    echo "splitw -h -p 43" >> /root/mylayout && \
+    echo "splitw -h -p 50" >> /root/mylayout && \
     echo "selectp -t 0" >> /root/mylayout &&\
     echo "bind D source-file /root/mylayout" >> /root/.tmux.conf && \
     touch /entrypoint.sh && \
