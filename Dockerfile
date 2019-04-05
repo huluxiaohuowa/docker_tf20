@@ -1,6 +1,6 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 LABEL maintainer="4@jach.vip"
-LABEL version="1.1.13"
+LABEL version="1.1.14"
 
 # apps
 RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
@@ -37,10 +37,9 @@ RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
     echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-updates main restricted universe multiverse" >> /etc/apt/sources.list && \
     echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-backports main restricted universe multiverse" >> /etc/apt/sources.list && \
     echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-security main restricted universe multiverse" >> /etc/apt/sources.list 
-    # /opt/conda/bin/conda install python=3.6.7
-
 
 # python packages
+RUN /opt/conda/bin/conda install -y python=3.6 
 RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     /opt/conda/bin/conda install nodejs && \
     /opt/conda/bin/jupyter labextension install @krassowski/jupyterlab_go_to_definition && \
