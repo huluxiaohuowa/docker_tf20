@@ -59,7 +59,8 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     echo "c.NotebookApp.notebook_dir = '/root/jupyter'" >> /root/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.allow_remote_access = True" >> /root/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.token = 'woaixiaohuowa'" >> /root/.jupyter/jupyter_notebook_config.py && \
-    /opt/conda/bin/pip install ipypb tf-nightly-gpu-2.0-preview joblib graphviz pydot fire networkx  && \
+    /opt/conda/bin/pip install ipypb tf-nightly-gpu-2.0-preview joblib graphviz pydot fire molvs networkx  && \
+    /opt/conda/bin/pip install modin psutil setproctitle && \
     /opt/conda/bin/pip install py3dmol dgl adabound tensorboardX torch-scatter torch-sparse torch-cluster torch-spline-conv torch-geometric && \
     /opt/conda/bin/jupyter labextension install jupyterlab_vim && \
     /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ && \
