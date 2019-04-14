@@ -1,6 +1,6 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 LABEL maintainer="4@jach.vip"
-LABEL version="1.1.14"
+LABEL version="1.1.15"
 
 # apps
 RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
@@ -39,7 +39,7 @@ RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
     echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-security main restricted universe multiverse" >> /etc/apt/sources.list 
 
 # python packages
-RUN /opt/conda/bin/conda install -y python=3.6 
+# RUN /opt/conda/bin/conda install -y python=3.6 
 RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     /opt/conda/bin/conda install nodejs && \
     /opt/conda/bin/jupyter labextension install @krassowski/jupyterlab_go_to_definition && \
@@ -78,7 +78,7 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
 
 
 # entrypoint
-
+RUN /usr/bin/git clone https://github.com/DamnWidget/anaconda.git /root/anaconda && \
 RUN echo "set number" >> /etc/vim/vimrc && \
     echo "set -o vi" >> /etc/bash.bashrc && \
     touch /root/mylayout && \
@@ -92,8 +92,9 @@ RUN echo "set number" >> /etc/vim/vimrc && \
     echo "export SHELL=/bin/bash" >> /entrypoint.sh && \
     echo "/usr/sbin/sshd &" >> /entrypoint.sh && \
     echo "/opt/conda/bin/tensorboard --logdir=/root/jupyter/tensorboard &" >> /entrypoint.sh && \
+    echo "/opt/conda/bin/python /root/anaconda/anaconda_server/minserver.py 9999 &" >> /entrypoint.sh &&\
     echo "/opt/conda/bin/jupyter lab --allow-root" >> /entrypoint.sh && \
     chmod 755 /entrypoint.sh
 
-EXPOSE 8888 22 6006
+EXPOSE 8888 22 6006 9999
 CMD ["/entrypoint.sh"]
