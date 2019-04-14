@@ -78,7 +78,7 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
 
 
 # entrypoint
-RUN /usr/bin/git clone https://github.com/DamnWidget/anaconda.git /root/anaconda && \
+RUN /usr/bin/git clone https://github.com/DamnWidget/anaconda.git /root/anaconda 
 RUN echo "set number" >> /etc/vim/vimrc && \
     echo "set -o vi" >> /etc/bash.bashrc && \
     touch /root/mylayout && \
