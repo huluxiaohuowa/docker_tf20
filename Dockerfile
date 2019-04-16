@@ -1,6 +1,6 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 LABEL maintainer="4@jach.vip"
-LABEL version="1.1.16"
+LABEL version="1.1.17"
 
 # apps
 RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
@@ -39,7 +39,7 @@ RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
     echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-security main restricted universe multiverse" >> /etc/apt/sources.list 
 
 # python packages
-RUN /opt/conda/bin/conda install -y python=3.6 
+# RUN /opt/conda/bin/conda install -y python=3.6 
 RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     /opt/conda/bin/conda install nodejs && \
     /opt/conda/bin/jupyter labextension install @krassowski/jupyterlab_go_to_definition && \
@@ -50,6 +50,7 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     /opt/conda/bin/conda install -y -c conda-forge scipy && \
     /opt/conda/bin/conda install -y -c rdkit rdkit && \
     /opt/conda/bin/conda install -y pytorch torchvision cudatoolkit=10.0 -c pytorch && \
+    /opt/conda/bin/conda install -y -c openbabel openbabel && \
     /opt/conda/bin/jupyter lab --generate-config  --allow-root && \
     echo "c.NotebookApp.terminado_settings = { \"/bin/bash\": \"foo\" }" >> /root/.jupyter/jupyter_notebook_config.py && \ 
     echo "c.NotebookApp.ip = '*'" >> /root/.jupyter/jupyter_notebook_config.py && \
@@ -73,7 +74,7 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/ && \
     /opt/conda/bin/pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && \
     # hhhh e3fp 
-    /opt/conda/bin/pip install e3fp && \
+    # /opt/conda/bin/pip install e3fp && \
     /opt/conda/bin/conda clean -a -y
 
 
