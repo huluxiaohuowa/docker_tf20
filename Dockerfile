@@ -65,7 +65,7 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     /opt/conda/bin/pip install nbresuse modin psutil setproctitle jupyterlab_sql jupyter-tensorboard && \
     /opt/conda/bin/pip install psycopg2 pysnooper py3dmol dgl adabound tensorboardX torch-scatter torch-sparse torch-cluster torch-spline-conv torch-geometric && \
     /opt/conda/bin/jupyter labextension install @krassowski/jupyterlab_go_to_definition @enlznep/jupyterlab_shell_file jupyterlab-python-file && \
-    /opt/conda/bin/jupyter labextensioninstall  jupyterlab_vim jupyterlab_tensorboard jupyterlab_toastify jupyterlab_conda && \
+    /opt/conda/bin/jupyter labextension install  jupyterlab_vim jupyterlab_tensorboard jupyterlab_toastify jupyterlab_conda && \
     /opt/conda/bin/jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor jupyterlab-topbar-text && \
     /opt/conda/bin/jupyter serverextension enable jupyterlab_sql --py --sys-prefix && \
     /opt/conda/bin/jupyter lab build && \
