@@ -44,7 +44,7 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     /opt/conda/bin/conda install nodejs && \
     /opt/conda/bin/jupyter labextension install @jupyterlab/toc && \
     /opt/conda/bin/jupyter labextension install @telamonian/theme-darcula && \
-    /opt/conda/bin/jupyter labextension install @jupyterlab/katex-extension
+    /opt/conda/bin/jupyter labextension install @jupyterlab/katex-extension && \
     /opt/conda/bin/conda install -y -c conda-forge matplotlib && \
     /opt/conda/bin/conda install -y -c conda-forge scikit-learn && \
     /opt/conda/bin/conda install -y -c conda-forge scipy && \
