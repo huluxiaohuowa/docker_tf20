@@ -20,7 +20,7 @@ RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
     echo "PermitRootLogin    yes" >> /etc/ssh/sshd_config && \
     echo "root:woshiroot" | chpasswd && \
     apt-get update --fix-missing && \
-    apt-get install -y wget bzip2 ca-certificates curl git && \
+    apt-get install -y wget bzip2 ca-certificates curl git libpq-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
@@ -53,7 +53,7 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     /opt/conda/bin/conda install -y pytorch torchvision cudatoolkit=10.0 -c pytorch && \
     /opt/conda/bin/conda install -y -c openbabel openbabel && \
     /opt/conda/bin/jupyter lab --generate-config  --allow-root && \
-    echo "c.NotebookApp.terminado_settings = { \"/bin/bash\": \"foo\" }" >> /root/.jupyter/jupyter_notebook_config.py && \ 
+    echo "c.NotebookApp.terminado_settings = { \"/bin/bash\": \"foo\" }" >> /root/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.ip = '*'" >> /root/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.open_browser = False" >> /root/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.port =8888 " >> /root/.jupyter/jupyter_notebook_config.py && \
@@ -63,7 +63,7 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     echo "c.NotebookApp.token = 'woaixiaohuowa'" >> /root/.jupyter/jupyter_notebook_config.py && \
     /opt/conda/bin/pip install ipypb tf-nightly-gpu-2.0-preview joblib graphviz pydot fire molvs networkx  && \
     /opt/conda/bin/pip install nbresuse modin psutil setproctitle jupyterlab_sql jupyter-tensorboard && \
-    /opt/conda/bin/pip install pysnooper py3dmol dgl adabound tensorboardX torch-scatter torch-sparse torch-cluster torch-spline-conv torch-geometric && \
+    /opt/conda/bin/pip install psycopg2 pysnooper py3dmol dgl adabound tensorboardX torch-scatter torch-sparse torch-cluster torch-spline-conv torch-geometric && \
     /opt/conda/bin/jupyter labextension install @krassowski/jupyterlab_go_to_definition @enlznep/jupyterlab_shell_file jupyterlab-python-file && \
     /opt/conda/bin/jupyter labextensioninstall  jupyterlab_vim jupyterlab_tensorboard jupyterlab_toastify jupyterlab_conda && \
     /opt/conda/bin/jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor jupyterlab-topbar-text && \
