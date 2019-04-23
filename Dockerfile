@@ -1,6 +1,6 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 LABEL maintainer="4@jach.vip"
-LABEL version="1.1.18"
+LABEL version="1.1.19"
 
 # apps
 RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
@@ -39,16 +39,17 @@ RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
     echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-security main restricted universe multiverse" >> /etc/apt/sources.list 
 
 # python packages
-RUN /opt/conda/bin/conda install -y python=3.6 
+# RUN /opt/conda/bin/conda install -y python=3.6 
 RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     /opt/conda/bin/conda install nodejs && \
-    /opt/conda/bin/jupyter labextension install @krassowski/jupyterlab_go_to_definition && \
     /opt/conda/bin/jupyter labextension install @jupyterlab/toc && \
     /opt/conda/bin/jupyter labextension install @telamonian/theme-darcula && \
+    /opt/conda/bin/jupyter labextension install @jupyterlab/katex-extension
     /opt/conda/bin/conda install -y -c conda-forge matplotlib && \
     /opt/conda/bin/conda install -y -c conda-forge scikit-learn && \
     /opt/conda/bin/conda install -y -c conda-forge scipy && \
     /opt/conda/bin/conda install -y -c rdkit rdkit && \
+    /opt/conda/bin/conda install -c conda-forge jupyter_conda && \
     /opt/conda/bin/conda install -y pytorch torchvision cudatoolkit=10.0 -c pytorch && \
     /opt/conda/bin/conda install -y -c openbabel openbabel && \
     /opt/conda/bin/jupyter lab --generate-config  --allow-root && \
@@ -61,9 +62,13 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     echo "c.NotebookApp.allow_remote_access = True" >> /root/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.token = 'woaixiaohuowa'" >> /root/.jupyter/jupyter_notebook_config.py && \
     /opt/conda/bin/pip install ipypb tf-nightly-gpu-2.0-preview joblib graphviz pydot fire molvs networkx  && \
-    /opt/conda/bin/pip install modin psutil setproctitle && \
+    /opt/conda/bin/pip install nbresuse modin psutil setproctitle jupyterlab_sql jupyter-tensorboard && \
     /opt/conda/bin/pip install py3dmol dgl adabound tensorboardX torch-scatter torch-sparse torch-cluster torch-spline-conv torch-geometric && \
-    /opt/conda/bin/jupyter labextension install jupyterlab_vim && \
+    /opt/conda/bin/jupyter labextension install @krassowski/jupyterlab_go_to_definition @enlznep/jupyterlab_shell_file jupyterlab-python-file && \
+    /opt/conda/bin/jupyter labextensioninstall  jupyterlab_vim jupyterlab_tensorboard jupyterlab_toastify jupyterlab_conda && \
+    /opt/conda/bin/jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor jupyterlab-topbar-text && \
+    /opt/conda/bin/jupyter serverextension enable jupyterlab_sql --py --sys-prefix && \
+    /opt/conda/bin/jupyter lab build && \
     /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/ && \
     /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/ && \
     /opt/conda/bin/conda config --set show_channel_urls yes && \
@@ -74,7 +79,7 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     # /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/ && \
     /opt/conda/bin/pip config set global.index-url https://mirrors.ustc.edu.cn/pypi/web/simple && \
     # hhhh e3fp 
-    /opt/conda/bin/pip install e3fp && \
+    # /opt/conda/bin/pip install e3fp && \
     /opt/conda/bin/conda clean -a -y
 
 
@@ -92,7 +97,7 @@ RUN echo "set number" >> /etc/vim/vimrc && \
     echo "#! /bin/bash" >> /entrypoint.sh && \
     echo "export SHELL=/bin/bash" >> /entrypoint.sh && \
     echo "/usr/sbin/sshd &" >> /entrypoint.sh && \
-    echo "/opt/conda/bin/tensorboard --logdir=/root/jupyter/tensorboard &" >> /entrypoint.sh && \
+    # echo "/opt/conda/bin/tensorboard --logdir=/root/jupyter/tensorboard &" >> /entrypoint.sh && \
     echo "/opt/conda/bin/python /root/anaconda/anaconda_server/minserver.py 9999 &" >> /entrypoint.sh &&\
     echo "/opt/conda/bin/jupyter lab --allow-root" >> /entrypoint.sh && \
     chmod 755 /entrypoint.sh
