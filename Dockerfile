@@ -63,7 +63,7 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     echo "c.NotebookApp.token = 'woaixiaohuowa'" >> /root/.jupyter/jupyter_notebook_config.py && \
     /opt/conda/bin/pip install ipypb tf-nightly-gpu-2.0-preview joblib graphviz pydot fire molvs networkx  && \
     /opt/conda/bin/pip install nbresuse modin psutil setproctitle jupyterlab_sql jupyter-tensorboard && \
-    /opt/conda/bin/pip install py3dmol dgl adabound tensorboardX torch-scatter torch-sparse torch-cluster torch-spline-conv torch-geometric && \
+    /opt/conda/bin/pip install pysnooper py3dmol dgl adabound tensorboardX torch-scatter torch-sparse torch-cluster torch-spline-conv torch-geometric && \
     /opt/conda/bin/jupyter labextension install @krassowski/jupyterlab_go_to_definition @enlznep/jupyterlab_shell_file jupyterlab-python-file && \
     /opt/conda/bin/jupyter labextensioninstall  jupyterlab_vim jupyterlab_tensorboard jupyterlab_toastify jupyterlab_conda && \
     /opt/conda/bin/jupyter labextension install jupyterlab-topbar-extension jupyterlab-system-monitor jupyterlab-topbar-text && \
