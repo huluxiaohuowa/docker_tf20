@@ -1,6 +1,6 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 LABEL maintainer="4@jach.vip"
-LABEL version="1.1.20"
+LABEL version="1.1.21"
 
 # apps
 RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
@@ -39,7 +39,7 @@ RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
     echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-security main restricted universe multiverse" >> /etc/apt/sources.list 
 
 # python packages
-RUN /opt/conda/bin/conda install -y python=3.6 
+# RUN /opt/conda/bin/conda install -y python=3.6 
 RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     /opt/conda/bin/conda install nodejs && \
     /opt/conda/bin/jupyter labextension install @jupyterlab/toc && \
@@ -70,17 +70,18 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     /opt/conda/bin/jupyter serverextension enable jupyterlab_sql --py --sys-prefix && \
     /opt/conda/bin/jupyter serverextension enable --py nbresuse && \
     /opt/conda/bin/jupyter lab build && \
-    /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/ && \
-    /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/ && \
+    # /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/ && \
+    # /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/ && \
+    # /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/r && \
+    # /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/mro && \
+    # /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/pro && \
+    # /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/archive && \
+    # /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/mro-archive && \
+    # /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/msys2 && \
     /opt/conda/bin/conda config --set show_channel_urls yes && \
-    /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/ && \
-    /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/msys2/ && \
-    /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/bioconda/ && \
-    /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/menpo/ && \
-    # /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/ && \
-    /opt/conda/bin/pip config set global.index-url https://mirrors.ustc.edu.cn/pypi/web/simple && \
+    /opt/conda/bin/pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && \
     # hhhh e3fp 
-    /opt/conda/bin/pip install e3fp && \
+    # /opt/conda/bin/pip install e3fp && \
     /opt/conda/bin/conda clean -a -y
 
 
