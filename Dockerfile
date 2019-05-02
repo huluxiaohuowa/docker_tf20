@@ -20,7 +20,8 @@ RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
     echo "PermitRootLogin    yes" >> /etc/ssh/sshd_config && \
     echo "root:woshiroot" | chpasswd && \
     apt-get update --fix-missing && \
-    apt-get install -y wget bzip2 ca-certificates curl git libpq-dev && \
+    apt-get install -y wget software-properties-common bzip2 ca-certificates curl git libpq-dev && \
+    # /usr/bin/chsh -s /usr/bin/fish && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
@@ -63,21 +64,14 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     echo "c.NotebookApp.token = 'woaixiaohuowa'" >> /root/.jupyter/jupyter_notebook_config.py && \
     /opt/conda/bin/pip install ipypb tf-nightly-gpu-2.0-preview joblib graphviz pydot fire molvs networkx  && \
     /opt/conda/bin/pip install nbresuse modin psutil setproctitle jupyterlab_sql jupyter-tensorboard && \
-    /opt/conda/bin/pip install psycopg2 pysnooper py3dmol dgl adabound tensorboardX torch-scatter torch-sparse torch-cluster torch-spline-conv torch-geometric && \
+    /opt/conda/bin/pip install psycopg2 pysnooper py3dmol dgl adabound botorch torch-scatter torch-sparse torch-cluster torch-spline-conv torch-geometric && \
     /opt/conda/bin/jupyter labextension install @krassowski/jupyterlab_go_to_definition @enlznep/jupyterlab_shell_file jupyterlab-python-file && \
     /opt/conda/bin/jupyter labextension install  jupyterlab_vim jupyterlab_tensorboard jupyterlab_toastify jupyterlab_conda && \
     /opt/conda/bin/jupyter labextension install @jupyterlab/statusbar jupyterlab-topbar-extension jupyterlab-system-monitor jupyterlab-topbar-text && \
     /opt/conda/bin/jupyter serverextension enable jupyterlab_sql --py --sys-prefix && \
     /opt/conda/bin/jupyter serverextension enable --py nbresuse && \
     /opt/conda/bin/jupyter lab build && \
-    # /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/ && \
-    # /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/ && \
-    # /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/r && \
-    # /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/mro && \
-    # /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/pro && \
-    # /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/archive && \
-    # /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/mro-archive && \
-    # /opt/conda/bin/conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/msys2 && \
+    curl -L -s https://raw.githubusercontent.com/jach4/docker_tf20/master/.condarc -o /root/.condarc && \
     /opt/conda/bin/conda config --set show_channel_urls yes && \
     /opt/conda/bin/pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && \
     # hhhh e3fp 
