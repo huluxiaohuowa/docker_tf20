@@ -1,6 +1,6 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 LABEL maintainer="4@jach.vip"
-LABEL version="1.1.22"
+LABEL version="1.1.21"
 
 # apps
 RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
@@ -40,7 +40,7 @@ RUN echo "export CUDA_HOME=\"/usr/local/cuda-10.0/\"" >> /etc/bash.bashrc && \
     echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-security main restricted universe multiverse" >> /etc/apt/sources.list 
 
 # python packages
-RUN /opt/conda/bin/conda install -y python=3.6 
+# RUN /opt/conda/bin/conda install -y python=3.6 
 RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     /opt/conda/bin/conda install nodejs && \
     /opt/conda/bin/jupyter labextension install @jupyterlab/toc && \
@@ -62,11 +62,11 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     echo "c.NotebookApp.notebook_dir = '/root/jupyter'" >> /root/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.allow_remote_access = True" >> /root/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.token = 'woaixiaohuowa'" >> /root/.jupyter/jupyter_notebook_config.py && \
-    /opt/conda/bin/pip install ipypb tf-nightly-gpu-2.0-preview joblib graphviz pydot fire molvs networkx  && \
+    /opt/conda/bin/pip install future ipypb jupytext tf-nightly-gpu-2.0-preview joblib graphviz pydot fire molvs networkx  && \
     /opt/conda/bin/pip install nbresuse modin psutil setproctitle jupyterlab_sql jupyter-tensorboard && \
     /opt/conda/bin/pip install psycopg2 pysnooper py3dmol dgl adabound botorch torch-scatter torch-sparse torch-cluster torch-spline-conv torch-geometric && \
     /opt/conda/bin/jupyter labextension install @krassowski/jupyterlab_go_to_definition @enlznep/jupyterlab_shell_file jupyterlab-python-file && \
-    /opt/conda/bin/jupyter labextension install  jupyterlab_vim jupyterlab_tensorboard jupyterlab_toastify jupyterlab_conda && \
+    /opt/conda/bin/jupyter labextension install jupyterlab-jupytext jupyterlab_vim jupyterlab_tensorboard jupyterlab_toastify jupyterlab_conda && \
     /opt/conda/bin/jupyter labextension install @jupyterlab/statusbar jupyterlab-topbar-extension jupyterlab-system-monitor jupyterlab-topbar-text && \
     /opt/conda/bin/jupyter serverextension enable jupyterlab_sql --py --sys-prefix && \
     /opt/conda/bin/jupyter serverextension enable --py nbresuse && \
@@ -75,7 +75,7 @@ RUN /opt/conda/bin/conda install -y -c conda-forge jupyterlab && \
     /opt/conda/bin/conda config --set show_channel_urls yes && \
     /opt/conda/bin/pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && \
     # hhhh e3fp 
-    /opt/conda/bin/pip install e3fp && \
+    # /opt/conda/bin/pip install e3fp && \
     /opt/conda/bin/conda clean -a -y
 
 
